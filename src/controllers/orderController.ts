@@ -42,7 +42,7 @@ export async function getOrderBolecode(orcamentoId: number, paymentId: number) {
     return;
   }
 
-  const address = await getAddressByClientIdType(order.id_cliente);
+  const address = await getAddressByClientIdType(order.id_cliente, 'cobranca');
 
   const response = await processBolecode({
     orcamentoId,
