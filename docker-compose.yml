@@ -9,18 +9,22 @@ services:
       - 3001:3333
     environment:
       - PORT=3333
-      - SECRET_TOKEN=qgmiuteb2eaeqemrvbv2hgceonac4ccaotb2e0itiioiigor4brcnonaomceahub
-      - DB_DRIVER=mysql
-      - DB_HOST=abc-crawler.devabc.com.br
-      - DB_DATABASE=abcpay
-      - DB_USERNAME=admin
-      - DB_PASSWORD=UhkHDI3wTy81Te2l
-      - DB_CATALOGO_DRIVER=mysql
-      - DB_CATALOGO_HOST=abc-rds-catalogo-mysql8-01.devabc.com.br
-      - DB_CATALOGO_DATABASE=digitala_vendas
-      - DB_CATALOGO_USERNAME=adminabccatalogo
-      - DB_CATALOGO_PASSWORD=kgSf2KAU26U5ZKkFEEkVax
-      - TIPO_PAG_IDS=[906874758, 906873808, 906873838, 906873866, 906874737, 906404512, 904964536, 904777964, 904793134, 904793163]
+      - DB_HOST=abc-rds-catalogo-mysql8-01.devabc.com.br
+      - DB_DATABASE=digitala_vendas
+      - DB_USERNAME=adminabccatalogo
+      - DB_PASSWORD=kgSf2KAU26U5ZKkFEEkVax
+      - DB_PRODUTOS_HOST=abc-crawler.devabc.com.br
+      - DB_PRODUTOS_DATABASE=api_produtos
+      - DB_PRODUTOS_USERNAME=admin
+      - DB_PRODUTOS_PASSWORD=UhkHDI3wTy81Te2l
+      - SF_LOGIN_URL=https://abcdaconstrucao--newpdv.sandbox.my.salesforce.com/
+      - SF_USERNAME=adminsalesforce@abcdaconstrucao.com.br.newpdv
+      - SF_PASSWORD="$$ABC2026##"
+      - SF_TOKEN=APzkCBku3TvpSGrMXTPniMlMA
+      - HOST_API_PAGAMENTO="https://pagamento.digitalabc.com.br"
+      - TOKEN_API_PAGAMENTO="9HDlaD5gZDc3vdeEAy7lQfwXk8kOHkPn"
+      - HOST_API_PAGSEGURO="https://sandbox.api.pagseguro.com"
+      - TOKEN_API_PAGSEGURO="1E31940324A54C84BAE877CB47C2DE03"
     networks:
       - app
 
