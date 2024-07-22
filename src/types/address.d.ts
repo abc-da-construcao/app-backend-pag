@@ -1,0 +1,23 @@
+export type AddressProps = {
+  id: number;
+  clientes_id: number;
+  oid_cliente: null | any;
+  oid_endereco: null | any;
+  oid_classificacao: null | any;
+  destinatario: string;
+  cep: string;
+  endereco: string;
+  numero: string;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  estado: string;
+  referencia: string;
+  tipo: string;
+  principal: number;
+  mesmo: number;
+  oid_cidade: null | any;
+  oid_estado: null | any;
+  created_at: string;
+  updated_at: string;
+};
