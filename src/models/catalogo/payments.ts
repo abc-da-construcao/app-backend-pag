@@ -1,11 +1,11 @@
 import db from '@/lib/mysql';
 import { QueryTypes } from 'sequelize';
 
-import { Order } from '@/types/orders';
+import { OrderProps } from '@/types/orders';
 import { PaymentProps } from '@/types/payments';
 
 export async function getPaymentByOrderId(id: number) {
-  const result = await db.query(
+  return await db.query(
     /*sql*/ `select 
                 p.id,
                 p.orcamento_id,
@@ -39,8 +39,6 @@ export async function getPaymentByOrderId(id: number) {
       replacements: [id],
     }
   );
-
-  return result;
 }
 
 export async function getPaymentByOrderIdAndPaymentId(orcamentoId: number, paymentId: number) {

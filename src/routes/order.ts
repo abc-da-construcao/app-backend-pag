@@ -10,12 +10,26 @@ import { merge } from '@/utls/array';
 
 export default async function orderRoute(app: FastifyInstance) {
   app.get('/:id', async (request, reply) => {
-    const { id } = <any>request.params;
+    const paramsSchema = z.object({
+      id: z.string(),
+    });
+    const { id } = paramsSchema.parse(request.params);
+
+    const order = await getOrderById(Number(id));
+
+    return reply.status(200).send(order);
+  });
+
+  app.get('/:id/all', async (request, reply) => {
+    const paramsSchema = z.object({
+      id: z.string(),
+    });
+    const { id } = paramsSchema.parse(request.params);
 
     const [order, items, payments] = await Promise.all([
-      getOrderById(id),
-      getItemsByOrder(id),
-      getPaymentByOrderId(id),
+      getOrderById(Number(id)),
+      getItemsByOrder(Number(id)),
+      getPaymentByOrderId(Number(id)),
     ]);
 
     const referencias = items.map((item: any) => `'${item.referencia}'`).join(',');

@@ -1,7 +1,7 @@
 import db from '@/lib/mysql';
 import { QueryTypes } from 'sequelize';
 
-import { Order } from '@/types/orders';
+import { OrderProps } from '@/types/orders';
 
 export async function getOrderByClientId(id: number) {
   const result = await db.query(
@@ -47,6 +47,7 @@ export async function getOrderByClientId(id: number) {
               and p.pedidos_mu is null 
               and p.status in(14)
               order by created_at desc
+              limit 50
             `,
     {
       type: QueryTypes.SELECT,
@@ -97,6 +98,7 @@ export async function getOrderById(id: number) {
               and p.pedidos_mu is null 
               and p.status in(14)
               order by created_at desc
+            limit 1
             `,
     {
       type: QueryTypes.SELECT,
@@ -104,7 +106,7 @@ export async function getOrderById(id: number) {
     }
   );
 
-  return (result ? result[0] : null) as Order;
+  return (result ? result[0] : null) as OrderProps;
 }
 
 export async function getOrderByClientIdAndOrderId(id: number, orderId: number) {
@@ -139,7 +141,7 @@ export async function getOrderByClientIdAndOrderId(id: number, orderId: number) 
     }
   );
 
-  return (result ? result[0] : null) as Order;
+  return (result ? result[0] : null) as OrderProps;
 }
 
 export async function addOrder(email: string) {

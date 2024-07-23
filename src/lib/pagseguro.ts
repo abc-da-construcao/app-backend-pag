@@ -4,34 +4,34 @@ import { errorValidation } from '@/error-handler';
 
 type TokenCardProps = {
   number: string;
-  exp_month: string;
-  exp_year: string;
-  security_code: string;
+  month: string;
+  year: string;
+  securityCode: string;
   name?: string;
-  tax_id?: string;
+  taxId?: string;
 };
 export async function tokenCard({
   number,
-  exp_month,
-  exp_year,
-  security_code,
+  month,
+  year,
+  securityCode,
   name,
-  tax_id,
+  taxId,
 }: TokenCardProps) {
   try {
     const holder =
-      name && tax_id
+      name && taxId
         ? {
             name,
-            tax_id,
+            tax_id: taxId,
           }
         : '';
 
     const card = {
       number,
-      exp_month,
-      exp_year,
-      security_code,
+      exp_month: month,
+      exp_year: year,
+      security_code: securityCode,
       holder,
     };
     const { data } = await pagseguro.post('/tokens/cards', card);

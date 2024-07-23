@@ -78,24 +78,24 @@ export default async function payRoute(app: FastifyInstance) {
   app.post('/card/token', async (request, reply) => {
     const bodySchema = z.object({
       number: z.string().trim().min(14),
-      exp_month: z.enum(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']),
-      exp_year: z.string().trim().min(4),
-      security_code: z.string().trim().min(3),
+      month: z.enum(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']),
+      year: z.string().trim().min(4),
+      securityCode: z.string().trim().min(3),
       holder: z.object({
         name: z.string().trim().min(3),
-        tax_id: z.string().min(11),
+        taxId: z.string().min(11),
       }),
     });
 
-    const { number, exp_month, exp_year, security_code, holder } = bodySchema.parse(request.body);
+    const { number, month, year, securityCode, holder } = bodySchema.parse(request.body);
 
     const data = await tokenCard({
       number,
-      exp_month,
-      exp_year,
-      security_code,
+      month,
+      year,
+      securityCode,
       name: holder.name,
-      tax_id: holder.tax_id,
+      taxId: holder.taxId,
     });
 
     if (data.error) {

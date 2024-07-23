@@ -1,12 +1,6 @@
 import { paymentMethodProps, PaymentProps } from '@/types/payments';
 import { AddressProps } from '@/types/address';
 
-export type ResponseOrderProps = {
-  id: number;
-  customer_email: string;
-  total: number;
-};
-
 export type OrderProps = {
   id: number;
   orcamento_id: number;
@@ -30,14 +24,15 @@ export type OrderProps = {
   valor_carrinho_sem_desconto: number;
   descontro: number;
   created_at: string;
-  items?: OrderItem[];
+  items?: OrderItemProps[];
 
-  payments?: PaymentProps;
+  // payments?: PaymentProps[];
+  payments?: any;
   payment_method?: paymentMethodProps;
   adresses?: AddressProps;
 };
 
-export type OrderItem = {
+export type OrderItemProps = {
   id: number;
   orcamento_id: number;
   referencia: number;

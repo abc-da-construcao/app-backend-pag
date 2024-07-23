@@ -9,10 +9,6 @@ import { errorValidation } from '@/error-handler';
 export async function processCard(order: OrderProps) {
   const json = await jsonFormat(order);
 
-  //   console.log(json);
-
-  //   return json;
-
   try {
     const { data } = await pagseguro.post('/orders', json);
 
