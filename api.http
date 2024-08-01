@@ -144,13 +144,11 @@ Content-Type: application/json
 
 {
   "number": "5555666677778884",
-  "month": "12",
-  "year": "2026",
-  "securityCode": "123",
-  "holder": {
-    "name": "tiago henrique",
-    "taxId": "01551660695"
-  }
+  "expiry": "12/2026",
+  "cvv": "123",
+  "name": "tiago henrique",
+  "document": "01551660695"
+  
 }
 
 ###

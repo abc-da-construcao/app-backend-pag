@@ -77,25 +77,40 @@ export default async function payRoute(app: FastifyInstance) {
 
   app.post('/card/token', async (request, reply) => {
     const bodySchema = z.object({
-      number: z.string().trim().min(14),
-      month: z.enum(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']),
-      year: z.string().trim().min(4),
-      securityCode: z.string().trim().min(3),
-      holder: z.object({
-        name: z.string().trim().min(3),
-        taxId: z.string().min(11),
-      }),
+      number: z
+        .string()
+        .min(1, 'Campo Obrigatorio')
+        .refine((value) => {
+          const regex =
+            /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9]{2})[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35[0-9]{3})[0-9]{11})$/;
+          return regex.test(value.replace(/\D/g, ''));
+        }, 'O número de cartão inválido')
+        .transform((value) => value.replace(/\D/g, '')),
+      name: z.string().min(1, 'Campo obrigatorio'),
+      expiry: z
+        .string()
+        .min(1, 'Campo obrigatorio')
+        .regex(/^(0[1-9]|1[0-2])\/(20[2-5][0-9])$/, 'Data inválida'),
+      cvv: z.string().min(1, 'Campo obrigatorio').min(3, 'CVV inválida'),
+      document: z
+        .string()
+        .min(1, 'Campo obrigatorio')
+        .regex(
+          /(\d{3})(\d{3})(\d{3})(\d{2})|(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
+          'Número de documento inválido'
+        ) // Validação básica para CPF ou CNPJ
+        .transform((value) => value.replace(/\D/g, '')),
     });
 
-    const { number, month, year, securityCode, holder } = bodySchema.parse(request.body);
+    const { number, name, expiry, cvv, document } = bodySchema.parse(request.body);
 
     const data = await tokenCard({
       number,
-      month,
-      year,
-      securityCode,
-      name: holder.name,
-      taxId: holder.taxId,
+      month: expiry.slice(0, 2),
+      year: expiry.slice(3, 7),
+      securityCode: cvv,
+      name: name,
+      taxId: document,
     });
 
     if (data.error) {
