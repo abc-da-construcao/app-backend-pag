@@ -21,6 +21,10 @@ const envSchema = z.object({
 
   HOST_API_PAGSEGURO: z.any(),
   TOKEN_API_PAGSEGURO: z.string(),
+
+  HOST_API_DUPLICATA: z.any(),
+  CLIENTID_API_DUPLICATA: z.string(),
+  CLIENTSECRET_API_DUPLICATA: z.string(),
 });
 
 export const env = envSchema.parse(process.env);

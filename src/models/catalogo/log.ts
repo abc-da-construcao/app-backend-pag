@@ -15,7 +15,7 @@ export async function insertLog({
                 log_pedidos_mirouniverso (orcamentoId, error, retorno, numero_mu, user_id ) 
             VALUES (?, ?, ?, ?, ?)`,
 
-    { replacements: [orcamentoId, title, JSON.stringify(log), pedidoMu, userId] }
+    { replacements: [orcamentoId, title, log ? JSON.stringify(log) : null, pedidoMu, userId] }
   );
 
   return result;

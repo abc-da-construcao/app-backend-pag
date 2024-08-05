@@ -28,6 +28,7 @@ export type OrderProps = {
 
   // payments?: PaymentProps[];
   payments?: any;
+  payment?: any;
   payment_method?: paymentMethodProps;
   adresses?: AddressProps;
 };

@@ -10,17 +10,16 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     // Handle Axios error
     console.error('Axios error:', error.message);
     if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
       console.error('Response status:', error.response.status);
       console.error('Response data:', error.response.data);
+      return reply.status(error.response.status).send(error.response.data);
     } else if (error.request) {
-      // The request was made but no response was received
       console.error('Request:', error.request);
     } else {
-      // Something happened in setting up the request that triggered an Error
       console.error('Error:', error.message);
     }
+
+    return reply.status(500).send({ message: error.message });
   } else {
     // Handle other errors
     console.error('Erro inesperado:', error);
@@ -55,6 +54,6 @@ export async function errorValidation(error: any) {
     // Handle other errors
     console.error('Unexpected error:', error);
 
-    return { error: { status: 500, message: error } };
+    return { error: { status: 500, message: error ?? 'Ocorreu um erro!' } };
   }
 }

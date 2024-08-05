@@ -12,7 +12,7 @@ export default async function clientRoute(app: FastifyInstance) {
 
     const { id } = paramsSchema.parse(request.params);
 
-    const orders = await getOrderByClientId(id);
+    const orders = await getOrderByClientId(Number(id));
 
     return reply.status(200).send(orders);
   });

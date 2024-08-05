@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { pagseguro } from '@/server/pagseguro';
 import { errorValidation } from '@/error-handler';
+import { formatAmountPagSeguro } from '@/utls/currency';
 
 type TokenCardProps = {
   number: string;
@@ -112,6 +113,6 @@ export async function itemsFormat(items: any) {
     reference_id: item.referencia,
     name: item.nome_amigavel ? item.nome_amigavel : item.nome_original,
     quantity: String(item.qtd).replace(/[^a-zA-Z0-9 ]/g, ''),
-    unit_amount: String(item.total).replace(/[^a-zA-Z0-9 ]/g, ''),
+    unit_amount: formatAmountPagSeguro(item.total),
   }));
 }

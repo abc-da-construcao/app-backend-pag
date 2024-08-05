@@ -14,9 +14,7 @@ export default async function payRoute(app: FastifyInstance) {
     const { orcamentoId, paymentId } = bodySchema.parse(request.body);
 
     const order = await getOrderBolecode(orcamentoId, paymentId);
-    if (!order) {
-      return reply.status(500).send({ message: 'Nenhum orcamento foi encontrado.' });
-    }
+    // if(order.)
 
     return reply.status(200).send(order);
   });

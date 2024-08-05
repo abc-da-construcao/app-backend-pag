@@ -8,109 +8,16 @@ GET http://localhost:3333/orders/1068083/all
 Content-Type: application/json
 
 
+###
+
+GET http://localhost:3333/orders/1068083/payment/984417
+Content-Type: application/json
+
 
 ###
 
 GET http://localhost:3333/clients/321611/orders
 Content-Type: application/json
-
-
-
-###
-
-POST http://localhost:3333/orders/payment
-Content-Type: application/json
-Authorization: Bearer 1E31940324A54C84BAE877CB47C2DE03
-
-{
-    "orcamento_id": "1068083",
-    "payment_id": 1234,
-    "amount": 500,
-    "payment_method": {
-        "type": "CREDIT_CARD",
-        "installments": 1,
-        "card": {
-            "id": "CARD_3370414E-6F53-4CE7-BCEC-5C8E7C9110D4",
-            "security_code": "123",
-            "holder": {
-                "name": "Jose da Silva",
-                "tax_id": "65544332211"
-            }
-        }
-    }
-}
-
-###
-
-POST http://localhost:3333/orders/pay
-Content-Type: application/json
-Authorization: Bearer 1E31940324A54C84BAE877CB47C2DE03
-
-{
-  "reference_id": "ex-00001",
-  "customer": {
-    "name": "Jose da Silva",
-    "email": "email@test.com",
-    "tax_id": "12345678909",
-    "phones": [
-      {
-        "country": "55",
-        "area": "11",
-        "number": "999999999",
-        "type": "MOBILE"
-      }
-    ]
-  },
-  "items": [
-    {
-      "reference_id": "referencia do item",
-      "name": "nome do item",
-      "quantity": 1,
-      "unit_amount": 500
-    }
-  ],
-  "shipping": {
-    "address": {
-      "street": "Avenida Brigadeiro Faria Lima",
-      "number": "1384",
-      "complement": "apto 12",
-      "locality": "Pinheiros",
-      "city": "São Paulo",
-      "region_code": "SP",
-      "country": "BRA",
-      "postal_code": "01452002"
-    }
-  },
-  "notification_urls": [
-    "https://meusite.com/notificacoes"
-  ],
-  "charges": [
-    {
-      "reference_id": "referencia da cobranca",
-      "description": "descricao da cobranca",
-      "amount": {
-        "value": 500,
-        "currency": "BRL"
-      },
-      "payment_method": {
-        "type": "CREDIT_CARD",
-        "installments": 1,
-        "capture": true,
-        "card": {
-          "id": "CARD_3370414E-6F53-4CE7-BCEC-5C8E7C9110D4",
-          "security_code": "123",
-          "holder": {
-            "name": "Jose da Silva",
-            "tax_id": "65544332211"
-          },
-          "store": false
-        }
-      }
-    }
-  ]
-}
-
-
 
 
 ###
@@ -143,7 +50,7 @@ POST http://localhost:3333/pay/card/token
 Content-Type: application/json
 
 {
-  "number": "5555666677778884",
+  "number": "4539620659922097",
   "expiry": "12/2026",
   "cvv": "123",
   "name": "tiago henrique",
@@ -158,17 +65,17 @@ Content-Type: application/json
 Authorization: Bearer 1E31940324A54C84BAE877CB47C2DE03
 
 {
-    "orcamentoId": 1067582,
-    "paymentId": 984110,
+    "orcamentoId": 1068083,
+    "paymentId": 984417,
     "paymentMethod": {
         "type": "CREDIT_CARD",
         "installments": 1,
         "card": {
-            "id": "CARD_3370414E-6F53-4CE7-BCEC-5C8E7C9110D4",
+            "id": "CARD_34CEB8F7-F372-4628-B800-65DC90195D21",
             "securityCode": "123",
             "holder": {
-                "name": "Jose da Silva",
-                "taxId": "65544332211"
+                "name": "tiago henrique",
+                "taxId": "01551660695"
             }
         }
     }

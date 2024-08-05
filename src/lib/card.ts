@@ -5,9 +5,12 @@ import { OrderProps } from '@/types/orders';
 
 import { insertLog } from '@/models/catalogo/log';
 import { errorValidation } from '@/error-handler';
+import { formatAmountPagSeguro } from '@/utls/currency';
 
 export async function processCard(order: OrderProps) {
   const json = await jsonFormat(order);
+
+  console.log(json?.charges);
 
   try {
     const { data } = await pagseguro.post('/orders', json);
@@ -64,6 +67,11 @@ export async function jsonFormat(order: OrderProps) {
     }),
     itemsFormat(order.items),
   ]);
+  // console.log('VALORRRRRR:', order.payments?.valor);
+  // console.log('VALORRRRR PARERR:', formatAmountPagSeguro(String(order.payments?.valor)));
+  // console.log('VALORRRRR PARERR:', formatAmountPagSeguro(order.payments?.valor));
+  // console.log('VALORRRRR PARERR:', formatAmountPagSeguro(18.3));
+  // console.log('VALORRRRR PARERR OOOOOOOO:', formatAmountPagSeguro('8.9'));
 
   return {
     reference_id: order.orcamento_id,
@@ -76,7 +84,7 @@ export async function jsonFormat(order: OrderProps) {
         reference_id: order.orcamento_id,
         // description: 'descricao da cobranca',
         amount: {
-          value: String(order.payments?.valor).replace(/[^a-zA-Z0-9 ]/g, ''),
+          value: formatAmountPagSeguro(order.payments?.valor),
           currency: 'BRL',
         },
 

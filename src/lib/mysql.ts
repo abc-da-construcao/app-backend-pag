@@ -9,7 +9,7 @@ const db = new Sequelize({
   username: env.DB_USERNAME,
   password: env.DB_PASSWORD,
   database: env.DB_DATABASE,
-  logging: true, // Set to true for debugging
+  logging: false, // Set to true for debugging
 });
 
 export default db;

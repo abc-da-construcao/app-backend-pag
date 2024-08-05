@@ -4,7 +4,7 @@ import z from 'zod';
 import { getOrderById } from '@/models/catalogo/orders';
 import { getItemsByOrder } from '@/models/catalogo/orderItem';
 import { getProductsReferencias } from '@/models/produto/products';
-import { getPaymentByOrderId } from '@/models/catalogo/payments';
+import { getPaymentByOrderId, getPaymentByOrderIdAndPaymentId } from '@/models/catalogo/payments';
 
 import { merge } from '@/utls/array';
 
@@ -40,6 +40,23 @@ export default async function orderRoute(app: FastifyInstance) {
 
     order.items = newitems;
     order.payments = payments;
+
+    return reply.status(200).send(order);
+  });
+
+  app.get('/:id/payment/:paymentId', async (request, reply) => {
+    const paramsSchema = z.object({
+      id: z.string().min(1, 'campo Id é obrigatório'),
+      paymentId: z.string().min(1, 'campo Id é obrigatório'),
+    });
+    const { id, paymentId } = paramsSchema.parse(request.params);
+
+    const [order, payment] = await Promise.all([
+      getOrderById(Number(id)),
+      getPaymentByOrderIdAndPaymentId(Number(id), Number(paymentId)),
+    ]);
+
+    order.payment = payment;
 
     return reply.status(200).send(order);
   });

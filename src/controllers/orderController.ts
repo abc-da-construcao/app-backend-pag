@@ -61,7 +61,7 @@ export async function getOrderBolecode(orcamentoId: number, paymentId: number) {
     cep: address.cep,
   });
 
-  return response;
+  return response as any;
 }
 
 export async function getOrderPix(orcamentoId: number, paymentId: number) {
