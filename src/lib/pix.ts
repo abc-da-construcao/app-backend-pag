@@ -1,6 +1,6 @@
 import { isDateMoreThan24HoursInFuture } from '@/utls/date';
 import { generationReferenceOrderProps, RegisterProps } from '@/types/pix';
-import { api } from '@/server/pagmento';
+import { apiPagamento } from '@/server/pagmento';
 
 import { errorValidation } from '@/error-handler';
 import { updateDataPixPayment } from '@/models/catalogo/payments';
@@ -73,7 +73,7 @@ async function formatJson(item: RegisterProps) {
 
 async function register({ item, title }: { item: RegisterProps; title?: string }) {
   try {
-    const { data } = await api.post('/itau/criar-qrcode-pix', await formatJson(item));
+    const { data } = await apiPagamento.post('/itau/criar-qrcode-pix', await formatJson(item));
     console.log('Create:', data);
 
     updateDataPixPayment({ id: item.paymentId, date: new Date(), qrcode: data.image_qrcode_pix });
@@ -105,7 +105,7 @@ async function search({
   title?: string;
 }) {
   try {
-    const { data } = await api.get(`/itau/get-qrcode-pix?pedido_referencia=${referencia}`);
+    const { data } = await apiPagamento.get(`/itau/get-qrcode-pix?pedido_referencia=${referencia}`);
     console.log('Consulta:', data);
 
     insertLog({
